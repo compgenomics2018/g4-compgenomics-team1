@@ -1,0 +1,41 @@
+
+while read f; do bwa mem -t 6 reference/GCF_000775395.1_ASM77539v1_genomic.fna data/$f* -o align/$f.sam; done < sus_sample_list
+
+while read f; do samtools view -S -b align/$f.sam > align/$f.bam; done < sus_10_sample_list
+
+while read f; do samtools sort align/$f.bam > align/$f.sorted_bam; done < hetero_10_sample_list
+
+
+while read f; do echo `readlink -f align/$f.sorted_bam` >> res_10_filename; done < res_10_sample_list
+
+samtools mpileup -g -f reference/GCF_000775395.1_ASM77539v1_genomic.fna -b res_10_filename -o res_10.raw.bcf 
+
+bcftools view other.raw.bcf | vcfutils.pl varFilter -D100 > other.filtered.vcf
+
+
+If [[ $some !="#"* ]]
+
+ while read f; do bgzip -c heteroresistance_sub_4_0411."$f"_sorted.bam.vcf > "$f".new.vcf.gz && tabix "$f".new.vcf.gz; done < sample_list
+
+To find unique vcf in one sample:
+
+	bcftools isec -C  SRR5666405.new.vcf.gz SRR5666395.new.vcf.gz SRR5666409.new.vcf.gz SRR5666603.new.vcf.gz -o only_in_405.vcf
+	
+	bcftools isec -C  SRR5666409.new.vcf.gz SRR5666405.new.vcf.gz SRR5666395.new.vcf.gz SRR5666603.new.vcf.gz -o only_in_409.vcf
+	
+	bcftools isec -C  SRR5666395.new.vcf.gz SRR5666405.new.vcf.gz SRR5666409.new.vcf.gz SRR5666603.new.vcf.gz -o only_in_395.vcf
+	
+	bcftools isec -C  SRR5666603.new.vcf.gz SRR5666405.new.vcf.gz SRR5666395.new.vcf.gz SRR5666409.new.vcf.gz -o only_in_603.vcf
+
+
+To separate pooled vcf of samples:
+	for file in *.vcf*; do
+	  for sample in `bcftools query -l $file`; do
+	    bcftools view -c1 -Oz -s $sample -o ${file/.vcf*/.$sample.vcf.gz} $file
+	  done
+	done
+	
+	
+Stats:
+bcftools stats res_10.vcf.gz > res.stat
+perl bcftools/misc/plot-vcfstats hetero.stat -p vcf_plot_hetero_10
