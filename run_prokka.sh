@@ -1,5 +1,5 @@
-prokka --outdir prokka_${array1[$j]} --kingdom Bacteria --gram neg /pro\
-jects/data/team1_genomeAssembly/true_assembly/${array2[$j]}#!/usr/bin/bash
+#!/usr/bin/bash
+ls *fasta > fastalist.txt
 
 run_prokka () {
 	i=0
@@ -20,4 +20,4 @@ run_prokka () {
 }
 
 
-run_prokka "genome.txt" "fastalist.txt"
+run_prokka "$1" "fastalist.txt"
