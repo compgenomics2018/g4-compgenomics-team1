@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+
 ls *fasta > fastalist.txt
 
 run_prokka () {
@@ -18,6 +19,11 @@ run_prokka () {
 	prokka --outdir prokka_${array1[$j]} --kingdom Bacteria --gram neg /projects/data/team1_genomeAssembly/true_assembly/${array2[$j]}
 	done
 }
-
-
 run_prokka "$1" "fastalist.txt"
+
+mkdir prokka_gff
+
+while read line
+do
+mv prokka_$line/*.gff ./prokka_gff/$line.gff
+done < $1
