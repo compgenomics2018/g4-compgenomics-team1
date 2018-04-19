@@ -1,11 +1,8 @@
 #!/usr/bin/bash
 
-run_prokka () {
-	while read line
-	do
-	mv prokka_$line/*.gff ./prokka_gff/$line.gff
-	done < $1
-}
+mkdir prokka_gff
 
-
-run_prokka "genomer.txt"
+while read line
+do
+mv prokka_$line/*.gff ./prokka_gff/$line.gff
+done < $1
