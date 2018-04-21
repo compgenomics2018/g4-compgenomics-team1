@@ -1,6 +1,5 @@
-# g2-prediction-team1
+# g2-compgenomics-team1
 
-## wrapper script genePrediction.sh usage
 Add to your PATH:
 Roary
 Scoary
