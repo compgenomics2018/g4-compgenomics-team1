@@ -19,3 +19,8 @@ this script is to run prokka on multiple files automatically, an input of the li
 
 `bash run_prokka.sh filnamelist.txt`
 
+##wrapper script run_bacterialGWAS_pangenome.sh
+require bacterialGWAS: https://github.com/jessiewu/bacterialGWAS
+
+##wrapper script run_kSNP.sh
+require kSNP3 installation with all dependencies: https://sourceforge.net/projects/ksnp/files/
