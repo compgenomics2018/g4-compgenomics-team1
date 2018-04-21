@@ -23,3 +23,13 @@ require bacterialGWAS: https://github.com/jessiewu/bacterialGWAS
 
 ##wrapper script run_kSNP.sh
 require kSNP3 installation with all dependencies: https://sourceforge.net/projects/ksnp/files/
+
+## plot_input.pl usage
+this script is to help generate input file from Roary present_absent matrix to plot a Manhattan plot using R\
+
+perl plot_input.pl roary_matrix
+
+## man_plot.R usage
+generate Manhattan plot using input file
+
+Rscript man_plot.R input.txt
