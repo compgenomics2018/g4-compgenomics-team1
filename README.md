@@ -27,9 +27,9 @@ require kSNP3 installation with all dependencies: https://sourceforge.net/projec
 ## plot_input.pl usage
 this script is to help generate input file from Roary present_absent matrix to plot a Manhattan plot using R\
 
-perl plot_input.pl roary_matrix
+`perl plot_input.pl roary_matrix`
 
 ## man_plot.R usage
 generate Manhattan plot using input file
 
-Rscript man_plot.R input.txt
+`Rscript man_plot.R input.txt`
